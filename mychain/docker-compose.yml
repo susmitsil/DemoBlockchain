@@ -1,0 +1,28 @@
+version: '2'
+services:
+  chainnode1:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+    - "5001:5001"
+  chainnode2:
+    environment:
+      - CHAIN_PEERS=ws://node1:9001
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+    - "5002:5001"
+    links:
+      - chainnode1:chainnode1
+  chainnode3:
+    environment:
+      - CHAIN_PEERS=ws://node2:9001
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+    - "5003:5001"
+    links:
+      - chainnode2:chainnode2

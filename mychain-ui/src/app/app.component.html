@@ -1,0 +1,198 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1 style="color:rgb(2333,84,32);">
+    Welcome to Demo Blockchain <i class="fa fa-link" aria-hidden="true"></i>
+  </h1>
+</div>
+
+
+<div class="panel-group" id="accordion" style="margin:20px">
+  <div class="panel panel-info" style="margin-bottom:10px;border:1px solid rgb(2333,84,32);padding:5px;border-radius:10px;">
+    <div class="panel-heading" style="background-color:rgb(2333,84,32);color:white;border-radius:5px;padding:5px;">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse0"  style="color:white">
+          Blockchain Setup ({{hostIp}}:{{hostPort}})</a>
+      </h4>
+    </div>
+    <div id="collapse0" class="panel-collapse collapse">
+      <div class="panel-body">
+        <form style="padding:10;">
+          <div class="form-group">
+            <label for="blockData">Host IP</label>
+            <input name="hostIp" [(ngModel)]="hostIp" class="form-control rounded-0" id="hostIp" aria-describedby="hostIpHelp" placeholder="Enter host port">
+            <small id="hostIpHelp" class="form-text text-muted">Please provide the host ip of the node</small>
+          </div>
+          <div class="form-group">
+            <label for="blockData">Host Port</label>
+            <input name="hostPort" [(ngModel)]="hostPort" class="form-control rounded-0" id="hostPort" aria-describedby="hostPortHelp" placeholder="Enter host port">
+            <small id="hostPortHelp" class="form-text text-muted">Please provide the host port of the node</small>
+          </div>
+          <div class="form-group">
+              <label for="blockData">Difficulty Level</label>
+              <input name="difficultyLevel" [(ngModel)]="difficultyLevel" class="form-control rounded-0" id="difficultyLevel" aria-describedby="difficultyLevelHelp" placeholder="Enter host port">
+              <small id="difficultyLevelHelp" class="form-text text-muted">Please provide the difficulty level for the network</small>
+            </div>
+          <button type="button" style="margin-bottom:10px;"class="btn btn-primary" (click)="applyConfig()">Apply Configuration</button>
+          &nbsp;&nbsp;<button type="button" style="margin-bottom:10px;"class="btn btn-primary" (click)="initializeBlockchain()">Initialize Blockchain</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+    <div class="panel panel-info" style="margin-bottom:10px;border:1px solid rgb(2333,84,32);padding:5px;border-radius:10px;">
+      <div class="panel-heading"  style="background-color:rgb(2333,84,32);color:white;border-radius:5px;padding:5px;">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" style="color:white">
+          Peer Details</a>&nbsp;&nbsp;<a href="#" style="color:white" (click)="getAllPeers()"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+        </h4>
+      </div>
+      <div id="collapse3" class="panel-collapse collapse">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col"> 
+              
+             
+                  <div class="row" style="border:1px solid darkgrey;margin-right:10px;border-radius: 10px;margin-left:5px;margin-top:10px;margin-bottom:10px;" *ngFor="let peer of peers; index as i;">
+                    
+                      <div class="col">
+                          <label for="peerId">Peer {{i}}  : {{peer}}</label>
+                          
+                      </div>
+              
+                  </div>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="panel panel-info" style="margin-bottom:10px;border:1px solid rgb(2333,84,32);padding:5px;border-radius:10px;">
+      <div class="panel-heading"  style="background-color:rgb(2333,84,32);color:white;border-radius:5px;padding:5px;">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse4" style="color:white">
+            Add Peer Section</a>
+        </h4>
+      </div>
+      <div id="collapse4" class="panel-collapse collapse">
+        <div class="panel-body">
+          <form style="padding:10;">
+              <div class="form-group">
+                  <label for="blockData">Peer Host IP</label>
+                  <input name="peerHostIp" [(ngModel)]="peerHostIp" class="form-control rounded-0" id="peerHostIp" aria-describedby="peerHostIpHelp" placeholder="Enter host port">
+                  <small id="peerHostIpHelp" class="form-text text-muted">Please provide the host ip of the peer node</small>
+                </div>
+                <div class="form-group">
+                  <label for="blockData">Peer Host Port</label>
+                  <input name="peerHostPort" [(ngModel)]="peerHostPort" class="form-control rounded-0" id="peerHostPort" aria-describedby="peerHostPortHelp" placeholder="Enter host port">
+                  <small id="peerHostPortHelp" class="form-text text-muted">Please provide the host port of the peer node</small>
+                </div>
+            <button type="button"  style="margin-bottom:10px;"class="btn btn-primary" (click)="addPeer()">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  <div class="panel panel-info" style="margin-bottom:10px;border:1px solid rgb(2333,84,32);padding:5px;border-radius:10px;">
+    <div class="panel-heading"  style="background-color:rgb(2333,84,32);color:white;border-radius:5px;padding:5px;">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" style="color:white">
+          Blockchain Entry Section</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+      <div class="panel-body">
+        <form style="padding:10;">
+          <div class="form-group">
+            <label for="blockData">Block Payload</label>
+            <textarea name="transactionData" [(ngModel)]="transactionData" class="form-control rounded-0" id="blockData" rows="5"  aria-describedby="blockDataHelp" placeholder="Enter blockchain data"></textarea>
+            <small id="blockDataHelp" class="form-text text-muted">Please provide the payload to be added on blockchain</small>
+          </div>
+          <button type="button"  style="margin-bottom:10px;"class="btn btn-primary" (click)="addBlock()">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-info" style="margin-bottom:10px;border:1px solid rgb(2333,84,32);padding:5px;border-radius:10px;">
+      <div class="panel-heading"  style="background-color:rgb(2333,84,32);color:white;border-radius:5px;padding:5px;">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" style="color:white">
+          Ledger Details (Block Height: {{blocks.length}})</a>&nbsp;&nbsp;<a href="#" style="color:white" (click)="getAllBlocks()"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+        </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col"> 
+                <div class="row" >
+                    <div class="col-sm-12" style="margin-left:450px;margin-top:10px;">
+                      <h4>Applied SHA 256 Hashing - Hash(Block No + Proof + Previous Hash + Timestamp + Data)</h4>
+                  </div>
+                </div>
+
+              <div class="row" >
+                  <div class="col-sm-5 shadow p-3 mb-5 bg-blue rounded" 
+                  style="border:1px solid darkgrey;margin-right:10px;border-radius: 20px;margin-bottom:10px;margin-left:100px;" 
+                  *ngFor="let block of blocks; index as i;" 
+                  [ngStyle]="{'border': (block.isValid!==undefined && block.isValid===false)? '2px solid yellow':'2px solid rgb(2333,84,32)'}" >
+                  
+                    <div class="row"  >
+                      <div class="col">
+                          <label for="blockNo">Block No</label>
+                          <input (keyup)="reCalculateHash(block)" readonly [(ngModel)]="block.index" class="form-control rounded-0" id="blockNo" [value]="block.index" placeholder="Enter blockNo"/>
+                      </div>
+                      <div class="col">
+                          <label for="blockTimestamp">Timestamp</label>
+                          <input (keyup)="reCalculateHash(block)" [(ngModel)]="block.timestamp" class="form-control rounded-0" id="timestamp" [value]="block.timestamp" placeholder="Enter timestamp"/>
+                      </div>
+                      <div class="col">
+                        <label for="blockNonce">Proof</label>
+                        <input (keyup)="reCalculateHash(block)" [(ngModel)]="block.proof" class="form-control rounded-0" id="nonce" [value]="block.proof" placeholder="Enter nonce"/>
+                    </div>
+                    </div>
+                    <div class="row">
+                      
+                        <div class="col">
+                            <label for="difficulty">Difficulty Level</label>
+                            <input readonly [(ngModel)]="block.difficulty" class="form-control rounded-0" id="difficulty" [value]="block.difficulty" placeholder="Enter difficulty"/>
+                        </div>
+                        <div class="col">
+                          
+                          <label for="timeTaken">Mining Time (ms)</label>
+                          <input readonly [(ngModel)]="block.timeTaken" class="form-control rounded-0" id="timeTaken" [value]="block.timeTaken" placeholder="Enter time taken"/>
+                      </div>
+                      </div>
+                    <div class="row">
+                      
+                      <div class="col">
+                          <label for="blockPrevHash">Previous Hash</label>
+                          <input (keyup)="reCalculateHash(block)" readonly [(ngModel)]="block.previousHash" class="form-control rounded-0" id="prevHash" [value]="block.previousHash" placeholder="Enter prev hash"
+                          [ngStyle]="{'background-color': (block.isValid!==undefined && block.isValid===false)? 'red':'white', 'color': (block.isValid!==undefined && block.isValid===false)? 'white':'black'}"/>
+                      </div>
+                      <div class="col">
+                        
+                        <label for="blockHash">Block Hash</label>
+                        <input (keyup)="reCalculateHash(block)" readonly [(ngModel)]="block.hash" class="form-control rounded-0" id="blockHash" [value]="block.hash" placeholder="Enter block hash"
+                        [ngStyle]="{'background-color': (block.isValid!==undefined && block.isValid===false)? 'red':'white', 'color': (block.isValid!==undefined && block.isValid===false)? 'white':'black'}"
+                        />
+                    </div>
+                    </div>
+                    <div class="row" style="padding-bottom:10px"> 
+                      <div class="col">
+                          <label for="blockPayload">Block Payload</label>
+                          <textarea (keyup)="reCalculateHash(block)" [(ngModel)]="block.data" class="form-control rounded-0" id="blockData" rows="5" [value]="block.data"  placeholder="Enter blockchain data"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size = "large" color = rgb(2333,84,32) type = "ball-pulse" fullScreen = "false" >
+  <p style="color: white" > Loading... </p>
+</ngx-spinner>
+<router-outlet></router-outlet>
