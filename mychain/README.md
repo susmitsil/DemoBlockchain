@@ -19,9 +19,9 @@ curl -H "Content-type:application/json" --data '{"difficulty" : 4}' http://local
 
 curl -H "Content-type:application/json" --data '{"difficulty" : 4}' http://localhost:5003/initializeBlockchain
 
-====================================================================================================================
+
 After this point run the UI and one can invke rest of teh operations from there below ones are not required
-====================================================================================================================
+
 
 # Apply Difficulty
 
